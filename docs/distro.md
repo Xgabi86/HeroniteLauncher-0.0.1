@@ -11,22 +11,22 @@ The distribution index is written in JSON. The general format of the index is as
     "version": "1.0.0",
     "discord": {
         "clientId": "12334567890123456789",
-        "smallImageText": "WesterosCraft",
+        "smallImageText": "Heronite",
         "smallImageKey": "seal-circle"
     },
-    "rss": "https://westeroscraft.com/articles/index.rss",
+    "rss": "#",
     "servers": [
         {
-            "id": "Example_Server",
-            "name": "WesterosCraft Example Client",
-            "description": "Example WesterosCraft server. Connect for fun!",
+            "id": "Heronite",
+            "name": "Heronite",
+            "description": "Heronite server. Connect for fun!",
             "icon": "http://mc.westeroscraft.com/WesterosCraftLauncher/files/example_icon.png",
             "version": "0.0.1",
             "address": "mc.westeroscraft.com:1337",
-            "minecraftVersion": "1.11.2",
+            "minecraftVersion": "1.12.2",
             "discord": {
-                "shortId": "Example",
-                "largeImageText": "WesterosCraft Example Server",
+                "shortId": "Heronite",
+                "largeImageText": "Heronite Server",
                 "largeImageKey": "server-example"
             },
             "mainServer": true,
@@ -47,10 +47,10 @@ The distribution index is written in JSON. The general format of the index is as
     "version": "1.0.0",
     "discord": {
         "clientId": "12334567890123456789",
-        "smallImageText": "WesterosCraft",
+        "smallImageText": "Heronite",
         "smallImageKey": "seal-circle"
     },
-    "rss": "https://westeroscraft.com/articles/index.rss",
+    "rss": "#",
     "servers": []
 }
 ```
@@ -81,16 +81,16 @@ A URL to a RSS feed. Used for loading news.
 #### Example
 ```JSON
 {
-    "id": "Example_Server",
-    "name": "WesterosCraft Example Client",
-    "description": "Example WesterosCraft server. Connect for fun!",
+    "id": "Heronite",
+    "name": "Heronite Client",
+    "description": "Heronite server. Connect for fun!",
     "icon": "http://mc.westeroscraft.com/WesterosCraftLauncher/files/example_icon.png",
     "version": "0.0.1",
     "address": "mc.westeroscraft.com:1337",
-    "minecraftVersion": "1.11.2",
+    "minecraftVersion": "1.12.2",
     "discord": {
-        "shortId": "Example",
-        "largeImageText": "WesterosCraft Example Server",
+        "shortId": "Heronite",
+        "largeImageText": "Heronite Server",
         "largeImageKey": "server-example"
     },
     "mainServer": true,
@@ -229,12 +229,6 @@ JDK 8 and prior
 Ex. 1.8.0_152-b16
 ```
 
-JDK 9+
-```
-{major}.{minor}.{patch}+{build}
-Ex. 11.0.12+7
-```
-
 For processing, all versions will be translated into a semver compliant string. JDK 9+ is already semver. For versions 8 and below, `1.{major}.{minor}_{patch}-b{build}` will be translated to `{major}.{minor}.{patch}+{build}`.
 
 If specified, you must also specify suggestedMajor.
@@ -334,8 +328,6 @@ Defines whether or not the module is required. If omitted, then the module will 
 
 Only applicable for modules of type:
 * `ForgeMod`
-* `LiteMod`
-* `LiteLoader`
 
 
 ### `Module.artifact: Artifact`
@@ -359,13 +351,8 @@ The resolved/provided paths are appended to a base path depending on the module'
 
 | Type | Path |
 | ---- | ---- |
-| `ForgeHosted` | ({`commonDirectory`}/libraries/{`path` OR resolved}) |
-| `Fabric` | ({`commonDirectory`}/libraries/{`path` OR resolved}) |
-| `LiteLoader` | ({`commonDirectory`}/libraries/{`path` OR resolved}) |
 | `Library` | ({`commonDirectory`}/libraries/{`path` OR resolved}) |
 | `ForgeMod` | ({`commonDirectory`}/modstore/{`path` OR resolved}) |
-| `LiteMod` | ({`commonDirectory`}/modstore/{`path` OR resolved}) |
-| `FabricMod` | ({`commonDirectory`}/mods/fabric/{`path` OR resolved}) |
 | `File` | ({`instanceDirectory`}/{`Server.id`}/{`path` OR resolved}) |
 
 The `commonDirectory` and `instanceDirectory` values are stored in the launcher's config.json.
@@ -403,106 +390,6 @@ If the module is required. Defaults to true if this property is omited.
 **OPTIONAL**
 
 If the module is enabled by default. Has no effect unless `Required.value` is false. Defaults to true if this property is omited. 
-
----
-
-## Module Types
-
-### ForgeHosted
-
-The module type `ForgeHosted` represents forge itself. Currently, the launcher only supports modded servers, as vanilla servers can be connected to via the mojang launcher. The `Hosted` part is key, this means that the forge module must declare its required libraries as submodules.
-
-Ex.
-
-```json
-{
-    "id": "net.minecraftforge:forge:1.11.2-13.20.1.2429",
-    "name": "Minecraft Forge 1.11.2-13.20.1.2429",
-    "type": "ForgeHosted",
-    "artifact": {
-        "size": 4450992,
-        "MD5": "3fcc9b0104f0261397d3cc897e55a1c5",
-        "url": "http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.11.2-13.20.1.2429/forge-1.11.2-13.20.1.2429-universal.jar"
-    },
-    "subModules": [
-        {
-            "id": "net.minecraft:launchwrapper:1.12",
-            "name": "Mojang (LaunchWrapper)",
-            "type": "Library",
-            "artifact": {
-                "size": 32999,
-                "MD5": "934b2d91c7c5be4a49577c9e6b40e8da",
-                "url": "http://mc.westeroscraft.com/WesterosCraftLauncher/files/1.11.2/launchwrapper-1.12.jar"
-            }
-        }
-    ]
-}
-```
-
-All of forge's required libraries are declared in the `version.json` file found in the root of the forge jar file. These libraries MUST be hosted and declared a submodules or forge will not work.
-
-There were plans to add a `Forge` type, in which the required libraries would be resolved by the launcher and downloaded from forge's servers. The forge servers are down at times, however, so this plan was stopped half-implemented.
-
----
-
-### Fabric
-
-The module type `Fabric` represents the fabric mod loader. Currently, the launcher only supports modded servers, as vanilla servers can be connected to via the mojang launcher.
-
-Ex.
-
-```json
-{
-    "id": "net.fabricmc:fabric-loader:0.15.0",
-    "name": "Fabric (fabric-loader)",
-    "type": "Fabric",
-    "artifact": {
-    "size": 1196222,
-    "MD5": "a43d5a142246801343b6cedef1c102c4",
-    "url": "http://localhost:8080/repo/lib/net/fabricmc/fabric-loader/0.15.0/fabric-loader-0.15.0.jar"
-    },
-    "subModules": [
-    {
-        "id": "1.20.1-fabric-0.15.0",
-        "name": "Fabric (version.json)",
-        "type": "VersionManifest",
-        "artifact": {
-        "size": 2847,
-        "MD5": "69a2bd43452325ba1bc882fa0904e054",
-        "url": "http://localhost:8080/repo/versions/1.20.1-fabric-0.15.0/1.20.1-fabric-0.15.0.json"
-        }
-    }
-}
-```
-
-Fabric works similarly to Forge 1.13+.
-
----
-
-### LiteLoader
-
-The module type `LiteLoader` represents liteloader. It is handled as a library and added to the classpath at runtime. Special launch conditions are executed when liteloader is present and enabled. This module can be optional and toggled similarly to `ForgeMod` and `Litemod` modules.
-
-Ex.
-```json
-{
-    "id": "com.mumfrey:liteloader:1.11.2",
-    "name": "Liteloader (1.11.2)",
-    "type": "LiteLoader",
-    "required": {
-        "value": false,
-        "def": false
-    },
-    "artifact": {
-        "size": 1685422,
-        "MD5": "3a98b5ed95810bf164e71c1a53be568d",
-        "url": "http://mc.westeroscraft.com/WesterosCraftLauncher/files/1.11.2/liteloader-1.11.2.jar"
-    },
-    "subModules": [
-        "All LiteMods go here"
-    ]
-}
-```
 
 ---
 
@@ -547,35 +434,7 @@ Ex.
 
 ---
 
-### LiteMod
-
-The module type `LiteMod` represents a mod loaded by liteloader. These files are stored maven-style and passed to liteloader using forge's [Modlist format](https://github.com/MinecraftForge/FML/wiki/New-JSON-Modlist-format). Documentation for liteloader's implementation of this can be found on [this issue](http://develop.liteloader.com/liteloader/LiteLoader/issues/34).
-
-Ex.
-```json
-{
-    "id": "com.mumfrey:macrokeybindmod:0.14.4-1.11.2@litemod",
-    "name": "Macro/Keybind Mod (0.14.4-1.11.2)",
-    "type": "LiteMod",
-    "required": {
-        "value": false,
-        "def": false
-    },
-    "artifact": {
-        "size": 1670811,
-        "MD5": "16080785577b391d426c62c8d3138558",
-        "url": "http://mc.westeroscraft.com/WesterosCraftLauncher/prod-1.11.2/mods/macrokeybindmod.litemod"
-    }
-}
-```
-
----
-
-### File
-
-The module type `file` represents a generic file required by the client, another module, etc. These files are stored in the server's instance directory.
-
-Ex.
+ressource pack
 
 ```json
 {
