@@ -207,7 +207,7 @@
                             }
                         },
                         {
-                            "id": "net.minecraftforge:MercuriusUpdater:1.11.2",
+                            "id": "net.minecraftforge:MercuriusUpdater:1.12.2",
                             "name": "MercuriusUpdater",
                             "type": "Library",
                             "artifact": {
@@ -217,16 +217,6 @@
                             }
                         }
                     ]
-                },
-                {
-                    "id": "com.westeroscraft:westerosblocks:3.2.0-beta-1-190",
-                    "name": "WesterosBlocks",
-                    "type": "ForgeMod",
-                    "artifact": {
-                        "size": 17376788,
-                         "MD5": "370f4f1804c93f498f31af8dac509605",
-                        "url": "http://mc.westeroscraft.com/WesterosCraftLauncher/prod-1.11.2/mods/WesterosBlocks.jar"
-                    }
                 },
                 {
                     "id": "com.westeroscraft:westeroscraftrp:2019-01-21",
@@ -358,27 +348,6 @@
                         "size": 542744,
                         "MD5": "26258a3557bf333e8f4ce8b1e9481031",
                         "url": "http://mc.westeroscraft.com/WesterosCraftLauncher/prod-1.11.2/mods/Waila.jar"
-                    }
-                },
-                {
-                    "id": "com.sonicether:seus:11.0",
-                    "name": "Sonic Ether's Unbelievable Shaders",
-                    "type": "File",
-                    "artifact": {
-                        "size": 175159,
-                        "MD5": "bfa8c31d1da8131b59917bb2460205b1",
-                        "path": "shaderpacks/SEUS v11.0.zip",
-                        "url": "http://mc.westeroscraft.com/WesterosCraftLauncher/prod-1.11.2/shaderpacks/SEUS.zip"
-                    }
-                },
-                {
-                    "id": "options.txt",
-                    "name": "Default Client Options",
-                    "type": "File",
-                    "artifact": {
-                        "size": 1973,
-                        "path": "options.txt",
-                        "url": "http://mc.westeroscraft.com/WesterosCraftLauncher/files/options-1.11.2.txt" 
                     }
                 },
                 {
